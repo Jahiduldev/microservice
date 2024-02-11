@@ -12,6 +12,8 @@ services:
     depends_on:
       - product_app
       - product_db
+    networks:
+      - shopping
     # command: sh -c "chmod -R 775 /var/www/storage && exec nginx -g 'daemon off;'"
 
   #Database Service
@@ -26,6 +28,8 @@ services:
       POSTGRES_DB: product
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
+    networks:
+      - shopping
 
   # Application Service
   product_app:
@@ -38,7 +42,8 @@ services:
     ports:
       - "9000:9000"
     working_dir:  /var/www
-
+    networks:
+    - shopping
   #phpMyAdmin Service
   product_pgadmin:
     image: dpage/pgadmin4
@@ -50,3 +55,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: hanieasemi76@gmail.com
       PGADMIN_DEFAULT_PASSWORD: password
+
+networks:
+  shopping:
+    external: true

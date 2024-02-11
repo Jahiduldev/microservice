@@ -13,6 +13,8 @@ services:
             - order_app
             - order_db
        # command: sh -c "chmod -R 775 /var/www/storage && exec nginx -g 'daemon off;'"
+        networks:
+          - shopping
 
     #Database Service
     order_db:
@@ -25,7 +27,8 @@ services:
        environment:
          MYSQL_DATABASE: order
          MYSQL_ROOT_PASSWORD: password
-
+       networks:
+         - shopping
     # Application Service
     order_app:
         container_name: order_app
@@ -37,7 +40,9 @@ services:
         ports:
             - "9001:9000"
         working_dir:  /var/www
-
+        networks:
+          - shopping
+          -
     #phpMyAdmin Service
     order_phpmyadmin:
        image: phpmyadmin/phpmyadmin
@@ -46,3 +51,8 @@ services:
          - "3400:80"
        depends_on:
          - order_db
+       networks:
+         - shopping
+networks:
+  shopping:
+    external: true
