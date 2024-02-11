@@ -3,7 +3,7 @@ services:
     # Web Server Service
     order_nginx:
         image: nginx:alpine
-        container_name: nginx
+        container_name: order_nginx
         ports:
             - "8081:80"
         volumes:
